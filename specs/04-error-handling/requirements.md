@@ -14,6 +14,7 @@ Every bad input prints one line `error: <message>` to stderr, prints nothing to 
 - `ConvertError(Exception)` carries the message. `main` catches it, prints `error: <message>` to stderr and returns 1.
 - A small `ArgumentParser` subclass overrides `error()` to raise `ConvertError`, so argparse failures use the same path (argparse's default exit code 2 is not used).
 - `--help` / `-h` keeps argparse's normal behavior: usage on stdout, exit 0.
+- A first argument starting with `-` (other than `-h`, `--help`, `--`) is treated as VALUE, not a flag. `main` inserts `--` before parsing, so `-inf` reports `VALUE must be a finite number` and `-x` reports `VALUE must be a number`.
 - The conversion functions and `CONVERSIONS` stay unchanged and pure.
 
 ## Out of scope
